@@ -25,7 +25,7 @@ namespace UserLogin.Controller
             {
                 return BadRequest(ex.Message);
             }
-            return Ok("user" + registerDto.Email + "added.");
+            return Ok("user " + registerDto.Email + " added.");
         }
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto loginDto)
@@ -33,9 +33,9 @@ namespace UserLogin.Controller
             var user = await _authService.LoginAsync(loginDto);
             if (user == null)
             {
-                return BadRequest("User not found Please Register");
+                return BadRequest("User not found Please enter valid creds / register");
             }
-            return Ok(user.Name + "found.");
+            return Ok(user.Name + " found.");
         }
     }
 }
