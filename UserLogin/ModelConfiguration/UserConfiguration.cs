@@ -1,0 +1,27 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using UserLogin.Models;
+
+namespace UserLogin.ModelConfiguration
+{
+    public class UserConfiguration : IEntityTypeConfiguration<User>
+    {
+        public void Configure(EntityTypeBuilder<User> builder)
+        {
+            builder.ToTable("e_users");
+            builder.HasKey(u => u.UserId);
+            builder.Property(u => u.Name)
+                .IsRequired()
+                .HasMaxLength(50);
+            builder.Property(u => u.Email)
+                .IsRequired()
+                .HasMaxLength(128);
+            builder.Property(u => u.Password)
+                .IsRequired()
+                .HasMaxLength(128);
+            builder.HasOne(u => u.Address)
+                .WithOne(u=>u.user)
+                .HasForeignKey<User>(u => u.AddressId);
+        }
+    }
+}
