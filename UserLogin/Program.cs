@@ -9,6 +9,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var ConStr = builder.Configuration.GetConnectionString("AppDbConnectionString");
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseMySql(ConStr,ServerVersion.AutoDetect(ConStr)));
+//builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
