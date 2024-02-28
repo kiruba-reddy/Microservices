@@ -5,6 +5,6 @@ RUN dotnet restore UserLogin.csproj
 COPY . .
 
 FROM build AS migrations
-RUN dotnet tool install --version 6.0.9 --global dotnet-ef
+RUN dotnet tool install --version 8.0 --global dotnet-ef
 ENV PATH="$PATH:/root/.dotnet/tools"
-ENTRYPOINT dotnet-ef database update --project src/ --startup-project src/
+ENTRYPOINT dotnet-ef database update
