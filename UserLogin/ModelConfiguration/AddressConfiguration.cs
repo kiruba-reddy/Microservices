@@ -9,7 +9,10 @@ namespace UserLogin.ModelConfiguration
         public void Configure(EntityTypeBuilder<Address> builder)
         {
             builder.ToTable("e_address");
-            builder.HasKey(a => a.UserAddresId);
+            builder.HasOne(u => u.user)
+               .WithOne(a=>a.Address)
+               .HasForeignKey<Address>(a => a.UserId);
+            builder.HasKey(a => a.AddressId);
             builder.Property(a => a.City)
                 .IsRequired()
                 .HasMaxLength(50);

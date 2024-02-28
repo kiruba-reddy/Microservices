@@ -10,7 +10,7 @@ using UserLogin.Data;
 namespace UserLogin.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240228060728_create")]
+    [Migration("20240228110000_create")]
     partial class create
     {
         /// <inheritdoc />
@@ -23,7 +23,7 @@ namespace UserLogin.Migrations
 
             modelBuilder.Entity("UserLogin.Models.Address", b =>
                 {
-                    b.Property<int>("UserAddresId")
+                    b.Property<int>("AddressId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -42,7 +42,13 @@ namespace UserLogin.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.HasKey("UserAddresId");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AddressId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("e_address", (string)null);
                 });
@@ -50,10 +56,6 @@ namespace UserLogin.Migrations
             modelBuilder.Entity("UserLogin.Models.User", b =>
                 {
                     b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("AddressId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -77,26 +79,23 @@ namespace UserLogin.Migrations
 
                     b.HasKey("UserId");
 
-                    b.HasIndex("AddressId")
-                        .IsUnique();
-
                     b.ToTable("e_users", (string)null);
-                });
-
-            modelBuilder.Entity("UserLogin.Models.User", b =>
-                {
-                    b.HasOne("UserLogin.Models.Address", "Address")
-                        .WithOne("user")
-                        .HasForeignKey("UserLogin.Models.User", "AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("UserLogin.Models.Address", b =>
                 {
-                    b.Navigation("user")
+                    b.HasOne("UserLogin.Models.User", "user")
+                        .WithOne("Address")
+                        .HasForeignKey("UserLogin.Models.Address", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("user");
+                });
+
+            modelBuilder.Entity("UserLogin.Models.User", b =>
+                {
+                    b.Navigation("Address")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

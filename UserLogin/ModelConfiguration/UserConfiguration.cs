@@ -10,6 +10,8 @@ namespace UserLogin.ModelConfiguration
         {
             builder.ToTable("e_users");
             builder.HasKey(u => u.UserId);
+            builder.Property(u => u.UserId)
+                .ValueGeneratedNever();
             builder.Property(u => u.Name)
                 .IsRequired()
                 .HasMaxLength(50);
@@ -19,9 +21,7 @@ namespace UserLogin.ModelConfiguration
             builder.Property(u => u.Password)
                 .IsRequired()
                 .HasMaxLength(128);
-            builder.HasOne(u => u.Address)
-                .WithOne(u=>u.user)
-                .HasForeignKey<User>(u => u.AddressId);
+           
         }
     }
 }
