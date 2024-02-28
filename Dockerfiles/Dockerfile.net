@@ -3,7 +3,7 @@ WORKDIR /src
 COPY UserLogin.csproj .
 RUN dotnet restore UserLogin.csproj
 COPY . .
-RUN dotnet ef database update --project UserLogin.csproj --context AppDbContext
+RUN dotnet ef database update
 RUN dotnet build UserLogin.csproj
 
 FROM build AS publish
