@@ -3,6 +3,7 @@ WORKDIR /src
 COPY UserLogin.csproj .
 RUN dotnet restore UserLogin.csproj
 COPY . .
+RUN dotnet ef database update --project UserLogin.csproj --context AppDbContext
 RUN dotnet build UserLogin.csproj
 
 FROM build AS publish
@@ -11,5 +12,4 @@ RUN dotnet publish UserLogin.csproj -c Release -o /app/publish
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-RUN dotnet ef database update --project UserLogin.csproj --context AppDbContext
 ENTRYPOINT ["dotnet", "UserLogin.dll"] 
