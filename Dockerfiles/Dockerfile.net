@@ -3,11 +3,7 @@ WORKDIR /src
 COPY UserLogin.csproj .
 RUN dotnet restore UserLogin.csproj
 COPY . .
-RUN dotnet tool install --global dotnet-ef
-ENV PATH="$PATH:/root/.dotnet/tools"
-RUN dotnet ef database update
 RUN dotnet build UserLogin.csproj
-
 FROM build AS publish
 RUN dotnet publish UserLogin.csproj -c Release -o /app/publish
 
