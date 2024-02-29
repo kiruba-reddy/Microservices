@@ -1,6 +1,10 @@
-﻿namespace UserLogin;
+﻿using UserLogin.Dto;
+using UserLogin.Models;
 
-public class IAuthService
+namespace UserLogin.IRepository;
+
+public interface IAuthService
 {
-
+    Task<User> RegisterAsync(RegisterDto registerDto);
+    Task<User> LoginAsync(LoginDto loginDto);
 }
