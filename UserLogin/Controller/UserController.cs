@@ -9,7 +9,7 @@ namespace UserLogin.Controller;
 public class UserController : ControllerBase
 {
     private readonly IAuthService _authService;
-    public LoginRegisterController(IAuthService authService)
+    public UserController(IAuthService authService)
     {
         _authService = authService;
     }
