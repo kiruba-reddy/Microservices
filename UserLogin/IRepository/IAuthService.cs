@@ -1,5 +1,5 @@
 ﻿using UserLogin.Dto;
-using UserLogin.Models;
+using UserLogin.models;
 
 namespace UserLogin.IRepository;
 
