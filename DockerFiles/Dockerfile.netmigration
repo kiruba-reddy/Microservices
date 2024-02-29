@@ -1,0 +1,11 @@
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+COPY UserLogin.csproj .
+RUN dotnet restore UserLogin.csproj
+
+FROM build AS migrations
+COPY . .
+RUN dotnet tool install --version 8.0 --global dotnet-ef
+ENV PATH="$PATH:/root/.dotnet/tools"
+ENTRYPOINT dotnet-ef database update
+
